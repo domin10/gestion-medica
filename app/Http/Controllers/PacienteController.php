@@ -32,7 +32,7 @@ class PacienteController extends Controller
             'telefono' => $request->telefono,
         ]);
 
-        return redirect('/pacientes');
+        return redirect('/pacientes')->with('success', 'Paciente creado correctamente.');
     }
 
     public function edit($id)
@@ -56,12 +56,13 @@ class PacienteController extends Controller
             'edad'     => $request->edad,
             'telefono' => $request->telefono,
         ]);
-        return redirect('/pacientes');
+        
+        return redirect('/pacientes')->with('success', 'Paciente actualizado correctamente.');
     }
 
     public function destroy($id)
     {
         Paciente::findOrFail($id)->delete();
-        return redirect('/pacientes');
+        return redirect('/pacientes')->with('success', 'Paciente eliminado.');
     }
 }
