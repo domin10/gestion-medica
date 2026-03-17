@@ -23,6 +23,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/pacientes/{id}/editar', [PacienteController::class, 'edit']);
     Route::post('/pacientes/{id}', [PacienteController::class, 'update']);
     Route::post('/pacientes/{id}/eliminar', [PacienteController::class, 'destroy']);
+    Route::get('/pacientes/{id}', [PacienteController::class, 'show']);
 });
 
 require __DIR__.'/auth.php';

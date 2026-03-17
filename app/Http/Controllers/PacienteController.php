@@ -65,4 +65,10 @@ class PacienteController extends Controller
         Paciente::findOrFail($id)->delete();
         return redirect('/pacientes')->with('success', 'Paciente eliminado.');
     }
+
+    public function show($id)
+    {
+        $paciente = Paciente::findOrFail($id);
+        return view('pacientes.show', ['paciente' => $paciente]);
+    }
 }
