@@ -20,6 +20,12 @@ class PacienteController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'nombre'    => 'required|min:3|max:100',
+            'edad'      => 'required|integer|min:0|max:120',
+            'telefono'  => 'nullable|min:9:max:15',
+        ]);
+
         Paciente::create([
             'nombre'   => $request->nombre,
             'edad'     => $request->edad,
@@ -37,6 +43,13 @@ class PacienteController extends Controller
 
     public function update(Request $request, $id)
     {
+
+        $request->validate([
+            'nombre'   => 'required|min:3|max:100',
+            'edad'     => 'required|integer|min:0|max:120',
+            'telefono' => 'nullable|min:9|max:15',
+        ]);
+
         $paciente = Paciente::findOrFail($id);
         $paciente->update([
             'nombre'   => $request->nombre,

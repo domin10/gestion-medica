@@ -10,28 +10,11 @@
         <form method="POST" action="/pacientes">
             @csrf
 
-            <div class="mb-5">
-                <label class="block text-sm font-medium text-gray-700 mb-1">Nombre completo</label>
-                <input type="text" name="nombre"
-                       class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-                       placeholder="Ej: María García">
-            </div>
+            <x-input label="Nombre completo" name="nombre" placeholder="Ej: María García" />
+            <x-input label="Edad" name="edad" type="number" placeholder="Ej: 45" />
+            <x-input label="Teléfono" name="telefono" placeholder="Ej: 666 111 222" />
 
-            <div class="mb-5">
-                <label class="block text-sm font-medium text-gray-700 mb-1">Edad</label>
-                <input type="number" name="edad"
-                       class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-                       placeholder="Ej: 45">
-            </div>
-
-            <div class="mb-8">
-                <label class="block text-sm font-medium text-gray-700 mb-1">Teléfono</label>
-                <input type="text" name="telefono"
-                       class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-                       placeholder="Ej: 666 111 222">
-            </div>
-
-            <div class="flex gap-3">
+            <div class="flex gap-3 mt-3">
                 <button type="submit"
                         class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-6 py-2.5 rounded-lg transition">
                     Guardar paciente
