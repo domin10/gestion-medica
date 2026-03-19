@@ -31,6 +31,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/pacientes/{id}/notas', [PacienteController::class, 'storeNota']);
     Route::delete('/notas/{id}', [PacienteController::class, 'destroyNota']);
 
+    Route::post('/pacientes/{id}/citas', [PacienteController::class, 'storeCita']);
+    Route::delete('/citas/{id}', [PacienteController::class, 'destroyCita']);
+    Route::patch('/citas/{id}', [PacienteController::class, 'updateEstadoCita']);
+
     Route::post('/theme', function (Request $request) {
         $request->user()->update(['dark_mode' => $request->dark_mode]);
         return response()->json(['ok' => true]);

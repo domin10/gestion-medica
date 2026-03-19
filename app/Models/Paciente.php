@@ -12,4 +12,9 @@ class Paciente extends Model
     {
         return $this->hasMany(Nota::class);
     }
+
+    public function citas()
+    {
+        return $this->hasMany(Cita::class);
+    }
 }

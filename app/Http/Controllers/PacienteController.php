@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Paciente;
 use App\Models\Nota;
+use App\Models\Cita;
 use Barryvdh\DomPDF\Facade\Pdf;
 
 class PacienteController extends Controller
@@ -78,7 +79,7 @@ class PacienteController extends Controller
 
     public function show($id)
     {
-        $paciente = Paciente::with('notasClinicas')->findOrFail($id);
+        $paciente = Paciente::with(['notasClinicas', 'citas'])->findOrFail($id);
         return view('pacientes.show', ['paciente' => $paciente]);
     }
 
@@ -104,6 +105,45 @@ class PacienteController extends Controller
         $nota->delete();
 
         return redirect("/pacientes/{$paciente_id}")->with('success', 'Nota eliminada.');
+    }
+
+    // CITAS
+    public function storeCita(Request $request, $id)
+    {
+        $request->validate([
+            'fecha'  => 'required|date',
+            'hora'   => 'required',
+            'motivo' => 'required|min:3|max:200',
+            'medico' => 'nullable|max:100',
+        ]);
+
+        Cita::create([
+            'paciente_id' => $id,
+            'fecha'       => $request->fecha,
+            'hora'        => $request->hora,
+            'motivo'      => $request->motivo,
+            'medico'      => $request->medico,
+            'estado'      => 'pendiente',
+        ]);
+
+        return redirect("/pacientes/{$id}")->with('success', 'Cita añadida correctamente.');
+    }
+
+    public function destroyCita($id)
+    {
+        $cita = Cita::findOrFail($id);
+        $paciente_id = $cita->paciente_id;
+        $cita->delete();
+
+        return redirect("/pacientes/{$paciente_id}")->with('success', 'Cita eliminada.');
+    }
+
+    public function updateEstadoCita(Request $request, $id)
+    {
+        $cita = Cita::findOrFail($id);
+        $cita->update(['estado' => $request->estado]);
+
+        return redirect("/pacientes/{$cita->paciente_id}")->with('success', 'Estado actualizado.');
     }
 
     // EXPORTS
