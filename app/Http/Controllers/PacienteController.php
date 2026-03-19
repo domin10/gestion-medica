@@ -7,10 +7,18 @@ use App\Models\Paciente;
 
 class PacienteController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $pacientes = Paciente::all();
-        return view('pacientes.index', ['pacientes' => $pacientes]);
+        $busqueda = $request->get('buscar');
+
+        $pacientes = Paciente::when($busqueda, function($query, $busqueda) {
+            return $query->where('nombre', 'like', '%' . $busqueda . '%');
+        })->paginate(10);
+
+        return view('pacientes.index', [
+            'pacientes' => $pacientes,
+            'busqueda'  => $busqueda
+        ]);
     }
 
     public function create()

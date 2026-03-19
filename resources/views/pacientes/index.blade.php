@@ -22,6 +22,30 @@
             </a>
         </div>
 
+        <form method="GET" action="/pacientes" class="mb-6">
+            <div class="relative max-w-sm">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <svg class="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                    </svg>
+                </div>
+                <input type="text"
+                    name="buscar"
+                    value="{{ $busqueda ?? '' }}"
+                    placeholder="Buscar paciente..."
+                    class="w-full pl-9 pr-4 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
+                @if($busqueda)
+                    <a href="/pacientes"
+                    class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600">
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </a>
+                @endif
+            </div>
+        </form>
+
         <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
             <table class="w-full text-sm">
                 <thead class="bg-gray-50 border-b border-gray-200">
@@ -80,6 +104,11 @@
                 </tbody>
             </table>
         </div>
+        @if($pacientes->hasPages())
+            <div class="mt-4">
+                {{ $pacientes->appends(['buscar' => $busqueda])->links() }}
+            </div>
+        @endif
     </div>
 
     {{-- Modal de confirmación --}}
