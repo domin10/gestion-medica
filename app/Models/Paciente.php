@@ -6,5 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Paciente extends Model
 {
-    protected $fillable = ['nombre', 'edad', 'telefono', 'notas'];
+    protected $fillable = ['nombre', 'edad', 'telefono'];
+
+    public function notasClinicas()
+    {
+        return $this->hasMany(Nota::class);
+    }
 }

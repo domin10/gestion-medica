@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Paciente;
+use App\Models\Nota;
 
 class PacienteController extends Controller
 {
@@ -76,7 +77,31 @@ class PacienteController extends Controller
 
     public function show($id)
     {
-        $paciente = Paciente::findOrFail($id);
+        $paciente = Paciente::with('notasClinicas')->findOrFail($id);
         return view('pacientes.show', ['paciente' => $paciente]);
+    }
+
+    // NOTAS
+    public function storeNota(Request $request, $id)
+    {
+        $request->validate([
+            'contenido' => 'required|min:3|max:1000',
+        ]);
+
+        Nota::create([
+            'paciente_id' => $id,
+            'contenido'   => $request->contenido,
+        ]);
+
+        return redirect("/pacientes/{$id}")->with('success', 'Nota añadida correctamente.');
+    }
+
+    public function destroyNota($id)
+    {
+        $nota = Nota::findOrFail($id);
+        $paciente_id = $nota->paciente_id;
+        $nota->delete();
+
+        return redirect("/pacientes/{$paciente_id}")->with('success', 'Nota eliminada.');
     }
 }
