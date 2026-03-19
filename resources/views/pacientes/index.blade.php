@@ -1,6 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="text-xl font-semibold text-gray-800">Pacientes</h2>
+        <h2 class="text-xl font-semibold text-gray-800 dark:text-white">Pacientes</h2>
+        {{-- <h2 class="text-2xl font-semibold text-gray-800 dark:text-white">Pacientes</h2> --}}
     </x-slot>
 
     <div class="py-8 max-w-5xl mx-auto px-6">
@@ -15,7 +16,7 @@
         @endif
 
         <div class="flex items-center justify-between mb-6">
-            <h1 class="text-2xl font-semibold text-gray-800">Lista de pacientes</h1>
+            <h1 class="text-2xl font-semibold text-gray-800 dark:text-white">Lista de pacientes</h1>
             <a href="/pacientes/crear"
                class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition">
                 + Nuevo paciente
@@ -34,7 +35,7 @@
                     name="buscar"
                     value="{{ $busqueda ?? '' }}"
                     placeholder="Buscar paciente..."
-                    class="w-full pl-9 pr-4 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
+                    class="w-full pl-9 pr-4 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
                 @if($busqueda)
                     <a href="/pacientes"
                     class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600">
@@ -46,27 +47,27 @@
             </div>
         </form>
 
-        <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
             <table class="w-full text-sm">
-                <thead class="bg-gray-50 border-b border-gray-200">
+                <thead class="bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-600">
                     <tr>
-                        <th class="text-left px-6 py-3 text-gray-500 font-medium">Nombre</th>
-                        <th class="text-left px-6 py-3 text-gray-500 font-medium">Edad</th>
-                        <th class="text-left px-6 py-3 text-gray-500 font-medium">Teléfono</th>
-                        <th class="text-left px-6 py-3 text-gray-500 font-medium">Acciones</th>
+                        <th class="text-left px-6 py-3 text-gray-500 dark:text-gray-400 font-medium">Nombre</th>
+                        <th class="text-left px-6 py-3 text-gray-500 dark:text-gray-400 font-medium">Edad</th>
+                        <th class="text-left px-6 py-3 text-gray-500 dark:text-gray-400 font-medium">Teléfono</th>
+                        <th class="text-left px-6 py-3 text-gray-500 dark:text-gray-400 font-medium">Acciones</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-100">
                     @foreach($pacientes as $paciente)
-                    <tr class="hover:bg-gray-50 transition">
-                        <td class="px-6 py-4 text-gray-800 font-medium">
+                    <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition">
+                        <td class="px-6 py-4 text-gray-800 dark:text-gray-100 font-medium">
                             <a href="/pacientes/{{ $paciente->id }}" class="hover:text-blue-600 transition">
                                 {{ $paciente->nombre }}
                             </a>
                         </td>
-                        <td class="px-6 py-4 text-gray-600">{{ $paciente->edad }} años</td>
-                        <td class="px-6 py-4 text-gray-600">{{ $paciente->telefono ?? '—' }}</td>
-                        <td class="px-6 py-4">
+                        <td class="px-6 py-4 text-gray-600 dark:text-gray-400">{{ $paciente->edad }} años</td>
+                        <td class="px-6 py-4 text-gray-600 dark:text-gray-400">{{ $paciente->telefono ?? '—' }}</td>
+                        <td class="px-6 py-4 text-gray-600 dark:text-gray-400">
                             <div class="flex items-center gap-2">
                                 <a href="/pacientes/{{ $paciente->id }}"
                                 class="inline-flex items-center gap-1.5 text-xs font-medium text-gray-600 hover:text-blue-600 bg-gray-100 hover:bg-blue-50 border border-gray-200 hover:border-blue-200 px-3 py-1.5 rounded-lg transition">

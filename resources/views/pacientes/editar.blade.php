@@ -4,9 +4,9 @@
     </x-slot>
 
     <div class="py-8 max-w-lg mx-auto px-6">
-        <a href="/pacientes" class="text-sm text-gray-500 hover:text-blue-600 transition">← Volver a pacientes</a>
+        <a href="/pacientes" class="text-sm text-gray-500 dark:text-gray-400 hover:text-blue-600 transition">← Volver a pacientes</a>
 
-        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-8 mt-4">
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-8 mt-4">
             <form method="POST" action="/pacientes/{{ $paciente->id }}">
                 @csrf
 
@@ -34,7 +34,7 @@
                 <div class="flex gap-3">
                     <x-primary-button>Guardar cambios</x-primary-button>
                     <a href="/pacientes"
-                       class="bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-medium px-6 py-2.5 rounded-lg transition">
+                    class="bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 text-sm font-medium px-6 py-2.5 rounded-lg transition">
                         Cancelar
                     </a>
                 </div>

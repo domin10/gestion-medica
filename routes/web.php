@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PacienteController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 Route::get('/', function () {
     return redirect('/pacientes');
@@ -24,6 +25,11 @@ Route::middleware('auth')->group(function () {
     Route::post('/pacientes/{id}', [PacienteController::class, 'update']);
     Route::post('/pacientes/{id}/eliminar', [PacienteController::class, 'destroy']);
     Route::get('/pacientes/{id}', [PacienteController::class, 'show']);
+
+    Route::post('/theme', function (Request $request) {
+        $request->user()->update(['dark_mode' => $request->dark_mode]);
+        return response()->json(['ok' => true]);
+    })->name('theme.update');
 });
 
 require __DIR__.'/auth.php';
