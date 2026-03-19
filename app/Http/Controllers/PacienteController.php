@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Paciente;
 use App\Models\Nota;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class PacienteController extends Controller
 {
@@ -103,5 +104,44 @@ class PacienteController extends Controller
         $nota->delete();
 
         return redirect("/pacientes/{$paciente_id}")->with('success', 'Nota eliminada.');
+    }
+
+    // EXPORTS
+    public function exportarCsv()
+    {
+        $pacientes = Paciente::all();
+
+        $headers = [
+            'Content-Type'        => 'text/csv',
+            'Content-Disposition' => 'attachment; filename="pacientes.csv"',
+        ];
+
+        $callback = function () use ($pacientes) {
+            $file = fopen('php://output', 'w');
+
+            // Cabecera del CSV
+            fputcsv($file, ['ID', 'Nombre', 'Edad', 'Teléfono', 'Fecha de registro']);
+
+            foreach ($pacientes as $paciente) {
+                fputcsv($file, [
+                    $paciente->id,
+                    $paciente->nombre,
+                    $paciente->edad,
+                    $paciente->telefono ?? '',
+                    $paciente->created_at->format('d/m/Y'),
+                ]);
+            }
+
+            fclose($file);
+        };
+
+        return response()->stream($callback, 200, $headers);
+    }
+
+    public function exportarPdf()
+    {
+        $pacientes = Paciente::all();
+        $pdf = Pdf::loadView('exports.pacientes-pdf', ['pacientes' => $pacientes]);
+        return $pdf->download('pacientes.pdf');
     }
 }

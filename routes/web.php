@@ -20,6 +20,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/pacientes', [PacienteController::class, 'index']);
     Route::get('/pacientes/crear', [PacienteController::class, 'create']);
+    Route::get('/pacientes/exportar/csv', [PacienteController::class, 'exportarCsv']);
+    Route::get('/pacientes/exportar/pdf', [PacienteController::class, 'exportarPdf']);
     Route::post('/pacientes', [PacienteController::class, 'store']);
     Route::get('/pacientes/{id}/editar', [PacienteController::class, 'edit']);
     Route::post('/pacientes/{id}', [PacienteController::class, 'update']);
